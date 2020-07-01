@@ -1,0 +1,1 @@
+create an ansible role that will deploy nginx.
