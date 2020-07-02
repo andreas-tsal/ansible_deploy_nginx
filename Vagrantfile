@@ -16,9 +16,8 @@ Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.define "control", primary: true do |h|
-    h.vm.network "private_network", ip: "192.168.135.10"
-    h.vm.provision "shell", path: "script.sh"
-    h.vm.synced_folder "./deploy_ng", "/etc/ansible/"
+    h.vm.network "private_network", ip: "192.168.35.10"
+
     h.vm.provision :shell, :inline => <<'EOF'
 if [ ! -f "/home/vagrant/.ssh/id_rsa" ]; then
   ssh-keygen -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
@@ -33,12 +32,16 @@ SSHEOF
 
 chown -R vagrant:vagrant /home/vagrant/.ssh/
 EOF
+
+  h.vm.provision "shell", path: "script.sh"
+  h.vm.synced_folder "./deploy_ng", "/etc/ansible/"
   end
 
   config.vm.define "webserver" do |h|
     h.vm.hostname = "webserver"
-    h.vm.network "private_network", ip: "192.168.135.101"
+    h.vm.network "private_network", ip: "192.168.35.101"
     h.vm.provision :shell, inline: 'cat /vagrant/control.pub >> /home/vagrant/.ssh/authorized_keys'
+    h.vm.provision "shell", path: "script2.sh"
   end
 
 end

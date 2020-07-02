@@ -1,8 +1,10 @@
 #!/bin/bash
 #update-upgrade packages
-apt-get update
-apt-get upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
 
-sudo apt-add-repository -y ppa:ansible/ansible
-sudo apt install -y ansible
+sudo apt install software-properties-common -y
+sudo apt-add-repository ppa:ansible/ansible -y
+sudo apt-get update -y
+sudo apt install ansible -y
 

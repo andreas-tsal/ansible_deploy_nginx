@@ -1,0 +1,8 @@
+---
+- hosts: webserver
+  become: true
+  tasks:
+  - name: ensure apache is at the latest version
+    apt: name=nginx state=present
+  - name: ensure ngninx started
+    service: name=nginx state=started enabled=yes
