@@ -1,19 +1,5 @@
----
-# tasks file for nginx
-  - name: ensuree nginx is at the latest version
-    apt: name=nginx state=present
-  - name: ensure ngninx started
-    service: name=nginx state=started enabled=yes
-  - name: configure nginx site
-    template: src=templates/nginx.conf.j2 dest=/etc/nginx/sites-available/demo mode=0644
-    notify: restart nginx
-  - name: de-activate
-    file: path=/etc/nginx/sites-available/default state=absent
-    notify: restart nginx
-  - name: activate
-    file: src=/etc/nginx/sites-available/demo dest=/etc/nginx/sites-enabled/demo state=link
-    notify: restart nginx	
-  - name: copy the content of the web site
-    copy:
-      src: files/static-site-src/index.html
-      dest: /usr/share/nginx/html/
+- name: ensuree nginx is at the latest version
+  apt: name=nginx state=present
+
+- name: ensure ngninx started
+  service: name=nginx state=started enabled=yes

@@ -13,7 +13,7 @@
 Vagrant.configure(2) do |config|
   config.hostmanager.enabled = true
   config.vm.hostname = "control"
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "bento/ubuntu-20.04"
 
   config.vm.define "control", primary: true do |h|
     h.vm.network "private_network", ip: "192.168.35.10"

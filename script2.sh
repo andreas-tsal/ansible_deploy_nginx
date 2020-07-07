@@ -1,4 +1,5 @@
 #!/bin/bash
-#update-upgrade packages
+#update packages
 sudo apt-get update -y
-sudo apt-get upgrade -y
+
+apt install net-tools -y

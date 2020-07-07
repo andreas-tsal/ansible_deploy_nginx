@@ -1,0 +1,12 @@
+[Unit]
+Description=get_info
+Requires=network.target
+After=syslog.target network.target
+[Service]
+ExecStart=/usr/bin/get_info.sh -s
+User=andreas1
+Group=andreas1
+
+
+[Install]
+WantedBy=multi-user.target

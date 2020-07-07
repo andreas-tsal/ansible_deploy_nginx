@@ -1,0 +1,42 @@
+--- 
+- name: "Create a login user"
+  user: 
+    createhome: true
+    groups: 
+      - sudo
+    home: /home/andreas1
+    name: andreas1
+    shell: /bin/bash
+    state: present
+    system: false
+
+
+- name: Copy file with owner and permissions
+  copy:
+    src: files/get_info.sh
+    dest: /usr/bin/get_info.sh 
+    mode: a+x
+
+
+# -
+#   name: Copy file with owner and permissions
+#   copy:
+#     src: ./host_info
+#     dest: /etc/logrotate.d/host_info
+- name: "get_info | Create Unit file"
+  notify: 
+    - "reload systemctl"
+  template: "src=get_info.service.j2 dest=/etc/systemd/system/get_info.service"
+
+- name: host_info | Create logrotate file"
+  notify: 
+    - "reload logrotate"
+  template: "src=host_info.j2 dest=/etc/logrotate.d/host_info"
+
+
+
+- name: "get_info | Start get_info"
+  service: name=get_info state=restarted enabled=yes
+
+
+    
